@@ -1,5 +1,5 @@
 # Handover — natural-dye-mordant-calculator
-Last verified: 2026-09-14 at (pre-commit)
+Last verified: 2026-09-14 at cc7592e
 
 Free mordant/iron-modifier calculators for natural fiber dyeing. Goal: `GOALS.md` G-001. Parent
 initiative: `E:\CLAUDE\projects\svc-lab\`. Charter: `E:\CLAUDE\COMPANY\`.
