@@ -1,11 +1,14 @@
 # Handover — natural-dye-mordant-calculator
-Last verified: 2026-09-14 at cc7592e
+Last verified: 2026-09-15 at cb858b3
 
 Free mordant/iron-modifier calculators for natural fiber dyeing. Goal: `GOALS.md` G-001. Parent
 initiative: `E:\CLAUDE\projects\svc-lab\`. Charter: `E:\CLAUDE\COMPANY\`.
 
 ## Current state
 
+- **Live**: https://natural-dye-mordant-calculator.svc.julienika.cz — deployed 2026-09-15, all 7
+  routes curl-verified 200 (home, `/mordant-calculator`, `/iron-modifier-calculator`,
+  `/mordant-reference`, `/ads.txt`, `/sitemap.xml`, `/robots.txt`).
 - Built, all four checks green: ESLint clean, 13/13 Vitest unit tests, production build clean (7
   routes, confirms `next@16.3.5`, no known RCE), 8/8 Playwright e2e tests.
 - Domain-expert review (natural-dye/textile-chemistry accuracy) was **not a rubber stamp**: found
@@ -16,7 +19,12 @@ initiative: `E:\CLAUDE\projects\svc-lab\`. Charter: `E:\CLAUDE\COMPANY\`.
   citation, cream-of-tartar mechanism, bamboo/ramie fiber grouping, copper mordant mention,
   false-precision water figures). All applied and re-verified — see `docs/domain-reference.md` for
   the full list and `docs/decisions/D001`.
-- Not yet: committed, pushed, deployed, security-reviewed, SEO-reviewed, or linked from the hub.
+- SEO review (curl-based): robots.txt points at sitemap.xml, sitemap.xml lists all 4 real routes,
+  title/description/OG/Twitter-card tags present and correct per page. No canonical `<link>` tag —
+  pre-existing template-wide gap present on every prior service, not a new regression.
+- Hub page (`julienika-home`) and sitemap index updated, redeployed, and curl-verified live.
+- `RESUME.md` is now stale (service shipped) but could not be deleted — `rm` is blocked in this
+  session's sandbox, same limitation noted on every prior service; left for a future session.
 
 ## How things fit together
 
@@ -37,21 +45,20 @@ initiative: `E:\CLAUDE\projects\svc-lab\`. Charter: `E:\CLAUDE\COMPANY\`.
 
 ## Next steps and open questions
 
-- Security review checklist (manual, per svc-lab playbook — no server routes/uploads found, no
-  `dangerouslySetInnerHTML` outside the shared escaped JSON-LD helper, no secrets staged) — run
-  once more immediately before push.
-- `git init`/commit, push via `init-repo.ps1`, deploy via `deploy-service.ps1` (port 30230), SEO
-  review, hub page + sitemap index update in `julienika-home`.
-- **COMPANY-doc reconciliation needed** (this automation cannot edit `COMPANY\**`): add
+- **COMPANY-doc reconciliation needed** (this session cannot edit `COMPANY\**`): add
   `natural-dye-mordant-calculator` to `COMPANY\INFRASTRUCTURE_DEPLOY.md`'s port registry
-  (`127.0.0.1:30230`, no DB) and `COMPANY\GOALS.md`'s project index, once live.
+  (`127.0.0.1:30230`, no DB, domain `natural-dye-mordant-calculator.svc.julienika.cz`) and
+  `COMPANY\GOALS.md`'s project index.
+- A future session should delete the now-stale `RESUME.md` (`rm` blocked in this sandbox).
 - Per-fiber temperature/timing guidance and mixed-fiber/blend handling are real gaps the
   domain-expert review flagged as out of scope for a dose calculator — a future milestone could add
   a process-notes column rather than just the dose.
 
 ## Deploy log
 
-Not yet deployed.
+| Date | Commit | What changed | How verified |
+|---|---|---|---|
+| 2026-09-15 | cb858b3 | Initial deploy, port 30230 | `deploy-service.ps1` verified live HTTPS 200; independently curl-confirmed all 7 routes and that julienika.cz + ats-resume-checker were unaffected |
 
 ## Decisions
 
